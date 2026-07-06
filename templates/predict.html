@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Predict - Credit Card Approval Prediction{% endblock %}
+{% block content %}
+<section class="form-section">
+    <div class="form-card">
+        <h2>Credit Card Approval Prediction</h2>
+
+        <form method="POST" action="{{ url_for('predict') }}">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="gender">GENDER</label>
+                    <select name="gender" id="gender">
+                        {% for g in gender_choices %}
+                        <option value="{{ g }}">{{ g }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="own_car">OWN CAR OR NOT</label>
+                    <select name="own_car" id="own_car">
+                        {% for c in yes_no_choices %}
+                        <option value="{{ c }}">{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="own_realty">OWN REALSTATE</label>
+                    <select name="own_realty" id="own_realty">
+                        {% for c in yes_no_choices %}
+                        <option value="{{ c }}" {% if c=='NO' %}selected{% endif %}>{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="annual_income">TOTAL ANUAL INCOME</label>
+                    <input type="number" step="0.01" name="annual_income" id="annual_income" value="50000">
+                </div>
+
+                <div class="form-group">
+                    <label for="income_type">TYPE OF INCOME</label>
+                    <select name="income_type" id="income_type">
+                        {% for i in income_type_choices %}
+                        <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="education">EDUCATION</label>
+                    <select name="education" id="education">
+                        {% for e in education_choices %}
+                        <option value="{{ e }}">{{ e }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="family_status">FAMILY STATUS</label>
+                    <select name="family_status" id="family_status">
+                        {% for f in family_status_choices %}
+                        <option value="{{ f }}">{{ f }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="housing_type">TYPE OF HOUSING</label>
+                    <select name="housing_type" id="housing_type">
+                        {% for h in housing_type_choices %}
+                        <option value="{{ h }}">{{ h }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="days_birth">DAYS BIRTH</label>
+                    <input type="number" step="0.000001" name="days_birth" id="days_birth" value="-10500">
+                </div>
+
+                <div class="form-group">
+                    <label for="days_employed">DAYS EMPLOYED</label>
+                    <input type="number" step="0.000001" name="days_employed" id="days_employed" value="-2000">
+                </div>
+
+                <div class="form-group">
+                    <label for="family_members">FAMILY MEMBERS</label>
+                    <input type="number" name="family_members" id="family_members" value="2">
+                </div>
+
+                <div class="form-group">
+                    <label for="emi_paid_off">EMI PAID OFF</label>
+                    <input type="number" name="emi_paid_off" id="emi_paid_off" value="4">
+                </div>
+
+                <div class="form-group">
+                    <label for="emi_pastdues">EMI OF PASTDUES</label>
+                    <input type="number" name="emi_pastdues" id="emi_pastdues" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="number_of_loans">NUMBER OF LOANS</label>
+                    <input type="number" name="number_of_loans" id="number_of_loans" value="2">
+                </div>
+            </div>
+
+            <div class="submit-row">
+                <button type="submit" class="predict-button">Predict</button>
+            </div>
+        </form>
+
+        {% if prediction %}
+        <div class="result-box {{ 'approved' if prediction == 'APPROVED' else 'rejected' }}">
+            <h3>Prediction Result: {{ prediction }}</h3>
+            {% if probability %}
+            <p>Model confidence: {{ probability }}%</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

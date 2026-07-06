@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Home - Credit Card Approval Prediction{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>Credit Card Approval Prediction System</h1>
+    <p class="tagline">
+        An end-to-end Machine Learning solution that predicts whether a credit
+        card application will be <strong>approved</strong> or <strong>rejected</strong>,
+        based on an applicant's financial and demographic profile.
+    </p>
+
+    <div class="card-grid">
+        <div class="info-card">
+            <h3>Automated Screening</h3>
+            <p>Instantly evaluate new applications using historical patterns learned from thousands of past decisions.</p>
+        </div>
+        <div class="info-card">
+            <h3>Risk Identification</h3>
+            <p>Flag high-risk applicants using payment history, past-due records, and credit behaviour.</p>
+        </div>
+        <div class="info-card">
+            <h3>Self-Service Check</h3>
+            <p>Let prospective customers check their own eligibility before formally applying.</p>
+        </div>
+    </div>
+
+    <p class="model-note">Currently serving predictions with: <strong>{{ model_name }}</strong></p>
+
+    <a class="cta-button" href="{{ url_for('predict') }}">Check Eligibility &rarr;</a>
+</section>
+{% endblock %}
